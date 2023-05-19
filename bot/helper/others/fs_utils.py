@@ -290,7 +290,7 @@ async def cmd_exec(cmd, shell=False):
     stderr = stderr.decode().strip()
     return stdout, stderr, proc.returncode
 
-async def get_media_info(path):
+def get_media_info(path):
     try:
         result = await cmd_exec(["ffprobe", "-hide_banner", "-loglevel", "error", "-print_format",
                                  "json", "-show_format", path])
