@@ -27,6 +27,8 @@ from subprocess import run as srun, check_output
 from time import time
 from math import ceil
 
+from asyncio import create_subprocess_exec, create_subprocess_shell, run_coroutine_threadsafe, sleep
+
 
 def get_base_name(orig_path: str):
     if orig_path.endswith(".tar.bz2"):
@@ -243,7 +245,7 @@ def get_path_size(path: str):
             total_size += ospath.getsize(abs_path)
     return total_size
 
-
+"""
 def get_media_info(path):
     try:
         result = check_output(
@@ -276,6 +278,36 @@ def get_media_info(path):
         title = None
     return duration, artist, title
 
+"""
+
+async def cmd_exec(cmd, shell=False):
+    if shell:
+        proc = await create_subprocess_shell(cmd, stdout=PIPE, stderr=PIPE)
+    else:
+        proc = await create_subprocess_exec(*cmd, stdout=PIPE, stderr=PIPE)
+    stdout, stderr = await proc.communicate()
+    stdout = stdout.decode().strip()
+    stderr = stderr.decode().strip()
+    return stdout, stderr, proc.returncode
+
+async def get_media_info(path):
+    try:
+        result = await cmd_exec(["ffprobe", "-hide_banner", "-loglevel", "error", "-print_format",
+                                 "json", "-show_format", path])
+        if res := result[1]:
+            LOGGER.warning(f'Get Media Info: {res}')
+    except Exception as e:
+        LOGGER.error(f'Get Media Info: {e}. Mostly File not found!')
+        return 0, None, None
+    fields = eval(result[0]).get('format')
+    if fields is None:
+        LOGGER.error(f"get_media_info: {result}")
+        return 0, None, None
+    duration = round(float(fields.get('duration', 0)))
+    tags = fields.get('tags', {})
+    artist = tags.get('artist') or tags.get('ARTIST')
+    title = tags.get('title') or tags.get('TITLE')
+    return duration, artist, title
 
 def get_video_resolution(path):
     try:
