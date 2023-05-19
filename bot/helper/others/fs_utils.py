@@ -280,11 +280,11 @@ def get_media_info(path):
 
 """
 
-async def cmd_exec(cmd, shell=False):
+def cmd_exec(cmd, shell=False):
     if shell:
-        proc = await create_subprocess_shell(cmd, stdout=PIPE, stderr=PIPE)
+        proc = create_subprocess_shell(cmd, stdout=PIPE, stderr=PIPE)
     else:
-        proc = await create_subprocess_exec(*cmd, stdout=PIPE, stderr=PIPE)
+        proc = create_subprocess_exec(*cmd, stdout=PIPE, stderr=PIPE)
     stdout, stderr = await proc.communicate()
     stdout = stdout.decode().strip()
     stderr = stderr.decode().strip()
@@ -292,7 +292,7 @@ async def cmd_exec(cmd, shell=False):
 
 def get_media_info(path):
     try:
-        result = await cmd_exec(["ffprobe", "-hide_banner", "-loglevel", "error", "-print_format",
+        result = cmd_exec(["ffprobe", "-hide_banner", "-loglevel", "error", "-print_format",
                                  "json", "-show_format", path])
         if res := result[1]:
             LOGGER.warning(f'Get Media Info: {res}')
