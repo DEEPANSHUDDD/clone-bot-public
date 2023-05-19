@@ -285,7 +285,7 @@ def cmd_exec(cmd, shell=False):
         proc = create_subprocess_shell(cmd, stdout=PIPE, stderr=PIPE)
     else:
         proc = create_subprocess_exec(*cmd, stdout=PIPE, stderr=PIPE)
-    stdout, stderr = await proc.communicate()
+    stdout, stderr = proc.communicate()
     stdout = stdout.decode().strip()
     stderr = stderr.decode().strip()
     return stdout, stderr, proc.returncode
