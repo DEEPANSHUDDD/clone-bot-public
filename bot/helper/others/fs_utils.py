@@ -245,7 +245,7 @@ def get_path_size(path: str):
             total_size += ospath.getsize(abs_path)
     return total_size
 
-"""
+
 def get_media_info(path):
     try:
         result = check_output(
@@ -308,7 +308,7 @@ def get_media_info(path):
     artist = tags.get('artist') or tags.get('ARTIST')
     title = tags.get('title') or tags.get('TITLE')
     return duration, artist, title
-
+"""
 def get_video_resolution(path):
     try:
         result = check_output(
