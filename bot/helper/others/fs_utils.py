@@ -5,7 +5,7 @@ from sys import exit as sysexit
 from os import remove as osremove, path as ospath, mkdir, walk, listdir, rmdir, makedirs
 from bot.helper.others.exceptions import NotSupportedExtractionArchive
 from bot import TG_SPLIT_SIZE, EQUAL_SPLITS, STORAGE_THRESHOLD, IS_PREMIUM_USER
-
+from asyncio.subprocess import PIPE
 if IS_PREMIUM_USER:
     MAX_SPLIT_SIZE = 4194304000
 else:
