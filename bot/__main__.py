@@ -110,19 +110,20 @@ def stats(update, context):
 def start(update, context):
     buttons = ButtonMaker()
     buttons.buildbutton(
-        "Repo", "https://www.github.com/yashoswalyo/clone-bot-public"
+        "Owner", "https://t.me/legendDeepanshu")
     )
-    buttons.buildbutton("Report Group", "https://t.me/yash_codes_support")
+    buttons.buildbutton("owner", "https://t.me/legendDeepanshu")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         start_string = f"""
-This bot can mirror all your links to Google Drive!
+This bot download pw videos very fast in any quality. Send any master.m3u8 links or pw links to bot then bot give video in different quality 
+But this is not free, to buy subscription message at @legendDeepanshu!
 Type /{BotCommands.HelpCommand} to get a list of available commands
 """
         sendMarkup(start_string, context.bot, update.message, reply_markup)
     else:
         sendMarkup(
-            "Not Authorized user, deploy your own clone bot",
+            "Not Authorized user, to authorize and buy subscribtion ,message at @legendDeepanshu",
             context.bot,
             update.message,
             reply_markup,
