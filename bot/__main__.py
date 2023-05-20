@@ -110,14 +110,13 @@ def stats(update, context):
 def start(update, context):
     buttons = ButtonMaker()
     buttons.buildbutton(
-        "Owner", "https://t.me/legendDeepanshu")
+        "Owner", "https://t.me/legendDeepanshu"
     )
     buttons.buildbutton("owner", "https://t.me/legendDeepanshu")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         start_string = f"""
-This bot download pw videos very fast in any quality. Send any master.m3u8 links or pw links to bot then bot give video in different quality 
-But this is not free, to buy subscription message at @legendDeepanshu!
+This bot download pw videos very fast in any quality. Send any master.m3u8 links or pw links to bot then bot give video in different quality But this is not free, to buy subscription message at @legendDeepanshu!
 Type /{BotCommands.HelpCommand} to get a list of available commands
 """
         sendMarkup(start_string, context.bot, update.message, reply_markup)
