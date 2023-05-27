@@ -116,13 +116,14 @@ def start(update, context):
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         start_string = f"""
-This bot download pw videos very fast in any quality. Send any master.m3u8 links or pw links to bot then bot give video in different quality But this is not free, to buy subscription message at @legendDeepanshu!
+This bot download pw videos very fast in any quality. Send any master.m3u8 links or pw links to bot then bot give video in different quality !",
 Type /{BotCommands.HelpCommand} to get a list of available commands
 """
         sendMarkup(start_string, context.bot, update.message, reply_markup)
     else:
         sendMarkup(
-            "Not Authorized user, to authorize and buy subscribtion ,message at @legendDeepanshu",
+            "Send any master.m3u8 links or pw links to bot .Example-/leechwatch<pwlinks in master.m3u8 form>i.e /leechwatch https://d26g5bnklkwsh4.cloudfront.net/0cd0d473-a728-41ec-a5a6-9b75094baaf4/hls/480/master.m3u8!",
+
             context.bot,
             update.message,
             reply_markup,
